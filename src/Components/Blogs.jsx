@@ -1,9 +1,17 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import BlogPost from "./BlogPost";
+import Loader from "./Loader";
 
 const Blogs = () => {
 
     const blogs = useLoaderData();
+
+    // loading spiner add
+    const navigation = useNavigation();  // aikhane useNavigation hook er maddhome jana jai page loading hosse kina. Jotokkhon porjonto loading thakbe totokkhon navigtion.state er value loadin thakbe. ar page load kora complete hole navigation.state false hoia jabe. 
+    if(navigation.state === 'loading'){
+        return <Loader></Loader>  //aikhane loader component k call kore return kore diase. Jar fole nicher code exicure hobena. Loading ses hole if er moddhe dhukbena. tokhon nicher code exicure hobe.
+    }
+
     console.log(blogs)
 
     return (
@@ -21,8 +29,9 @@ const Blogs = () => {
                     <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                      
                      {
-                        blogs.map(blog => <BlogPost key={blog.id} blog={blog}></BlogPost>)
+                        blogs.slice(1,).map(blog => <BlogPost  key={blog.id} blog={blog}></BlogPost>)
                      }
+                     
                     
                     </div>
               

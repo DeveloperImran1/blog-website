@@ -1,11 +1,25 @@
-import { useLoaderData } from "react-router-dom";
+import { useState } from "react";
+import { Link, Outlet, useLoaderData } from "react-router-dom";
+import { MdBookmarkAdd } from "react-icons/md";
+import { saveBlog } from "../utils";
+
 
 const Blog = () => {
     const blog = useLoaderData();
-    const { comments_count, published_at, title, reading_time_minutes, public_reactions_count } = blog;
-    console.log(blog)
+    const {  comments_count, published_at, title, reading_time_minutes, public_reactions_count } = blog;
+    
+
+
+    const [tabIndex, setTabIndex] = useState(1);
+
+
+    // handleBookmark 
+    const handleBookmark=(blog)=>{
+        saveBlog(blog)
+    }
+
     return (
-        <div className="max-w-2xl px-6 py-16 mx-auto space-y-12">
+        <div className="max-w-3xl px-6 py-16 mx-auto space-y-12">
             <article className="space-y-8">
                 <div className="space-y-6">
                     <h1 className="text-4xl font-bold md:tracking-tight md:text-5xl">{title}</h1>
@@ -19,62 +33,39 @@ const Blog = () => {
 
                     {/* Tab start  */}
 
-                    <div className="flex items-center -mx-4 overflow-x-auto overflow-y-hidden sm:justify-center flex-nowrap dark:bg-gray-800 dark:text-gray-100">
-                        <a rel="noopener noreferrer" href="#" className="flex items-center flex-shrink-0 px-5 py-3 space-x-2 border-b dark:border-gray-400 dark:text-gray-400">
+
+                    <div className="flex items-center -mx-4 overflow-x-auto overflow-y-hidden sm:justify-start flex-nowrap dark:bg-gray-800 dark:text-gray-100">
+                        <Link onClick={() => setTabIndex(1)} to="" className={`flex items-center flex-shrink-0 px-5 py-3 space-x-2 ${tabIndex === 1 ? 'border-b-0 border' : 'border-b'} rounded-t-lg dark:border-gray-400 dark:text-gray-50`}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                             </svg>
-                            <span>Architecto</span>
-                        </a>
-                        <a rel="noopener noreferrer" href="#" className="flex items-center flex-shrink-0 px-5 py-3 space-x-2 border border-b-0 rounded-t-lg dark:border-gray-400 dark:text-gray-50">
+                            <span>Content</span>
+                        </Link>
+                        <Link onClick={() => setTabIndex(0)}  to='author' className={`flex items-center flex-shrink-0 px-5 py-3 space-x-2 ${tabIndex === 1 ? ' border-b' : 'border border-b-0'} rounded-t-lg dark:border-gray-400 dark:text-gray-50`}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                             </svg>
-                            <span>Corrupti</span>
-                        </a>
-                        <a rel="noopener noreferrer" href="#" className="flex items-center flex-shrink-0 px-5 py-3 space-x-2 border-b dark:border-gray-400 dark:text-gray-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                            </svg>
-                            <span>Excepturi</span>
-                        </a>
-                        <a rel="noopener noreferrer" href="#" className="flex items-center flex-shrink-0 px-5 py-3 space-x-2 border-b dark:border-gray-400 dark:text-gray-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
-                            </svg>
-                            <span>Consectetur</span>
-                        </a>
+                            <span>Author</span>
+                        </Link>
+
+                       <div onClick={()=> handleBookmark(blog)} className="bg-primary p-3 ml-5 rounded-full hover:bg-opacity-30 bg-opacity-20 cursor-pointer hover:scale-105 overflow-hidden">
+                        <MdBookmarkAdd size={20} className="text-secondary"></MdBookmarkAdd>
+                       </div>
+
                     </div>
 
                     {/* Tab end  */}
                 </div>
-                <div className="text-gray-800">
-                    <p>Insert the actual text content here...</p>
-                </div>
+
+
+                {/* Outlet ta Article er vitore bosate hobe. */}
+                <Outlet></Outlet>
+
+
+
             </article>
-            <div>
-                <div className="flex flex-wrap py-6 gap-2 border-t border-dashed border-gray-400">
-                    <a rel="noopener noreferrer" href="#" className="px-3 py-1 rounded-sm hover:underline bg-violet-400 text-gray-900">#MambaUI</a>
-                    <a rel="noopener noreferrer" href="#" className="px-3 py-1 rounded-sm hover:underline bg-violet-400 text-gray-900">#TailwindCSS</a>
-                    <a rel="noopener noreferrer" href="#" className="px-3 py-1 rounded-sm hover:underline bg-violet-400 text-gray-900">#Angular</a>
-                </div>
-                <div className="space-y-2">
-                    <h4 className="text-lg font-semibold">Related posts</h4>
-                    <ul className="ml-4 space-y-1 list-disc">
-                        <li>
-                            <a rel="noopener noreferrer" href="#" className="hover:underline">Nunc id magna mollis</a>
-                        </li>
-                        <li>
-                            <a rel="noopener noreferrer" href="#" className="hover:underline">Duis molestie, neque eget pretium lobortis</a>
-                        </li>
-                        <li>
-                            <a rel="noopener noreferrer" href="#" className="hover:underline">Mauris nec urna volutpat, aliquam lectus sit amet</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+      
         </div>
     )
 };
