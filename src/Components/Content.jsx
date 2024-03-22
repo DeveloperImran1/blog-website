@@ -27,7 +27,7 @@ const Content = () => {
 
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2  ">
                     <h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">{title}</h3>
                     
                     {/* <Markdown  rehypePlugins={[rehypeRaw]}>  {body_html}  </Markdown>  aikhane markdown tag er vitore {body_html} aita likhar age pore space diasilam tai kaj kortesilona. So airokom gap dewa jabena. */}
