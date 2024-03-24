@@ -31,7 +31,9 @@ const Content = () => {
                     <h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">{title}</h3>
                     
                     {/* <Markdown  rehypePlugins={[rehypeRaw]}>  {body_html}  </Markdown>  aikhane markdown tag er vitore {body_html} aita likhar age pore space diasilam tai kaj kortesilona. So airokom gap dewa jabena. */}
+                    <div className=" overflow-hidden">
                     <Markdown rehypePlugins={[rehypeRaw]}>{body_html}</Markdown>
+                    </div>
                     
                 </div>
             </div>
